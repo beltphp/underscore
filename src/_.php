@@ -352,13 +352,7 @@ class _
      */
     public function none(Callable $callback)
     {
-        foreach ($this->container as $element) {
-            if ($callback($element)) {
-                return false;
-            }
-        }
-
-        return true;
+        return $this->any($callback) === false;
     }
 
     /**
