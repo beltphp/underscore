@@ -39,8 +39,6 @@ _::create($user->getFriends())->map(function ($f) {
     return $f->getFriends();
 })->select(function ($f) {
     return $f->getAge() > 18;
-})->map(function ($f) {
-    return $f->getFriends();
 })->reduce(function ($s, $f) {
     return $s + count($f->getFriends());
 });
