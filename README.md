@@ -1,5 +1,9 @@
 # Belt.`Underscore`
 
+[![Latest Version](https://img.shields.io/github/release/beltphp/underscore.svg?style=flat-square)](https://github.com/beltphp/underscore/releases)
+[![Software License](http://img.shields.io/packagist/l/belt/underscore.svg?style=flat)](LICENSE)
+[![Build Status](https://img.shields.io/travis/beltphp/underscore/master.svg?style=flat-square)](https://travis-ci.org/beltphp/releases)
+
 > Pushing round things down square holes.
 
 Belt`.Underscore` is an utility library that makes working with arrays in PHP
