@@ -123,13 +123,12 @@ class _
      */
     public function dict()
     {
-        $result = [];
+        return static::create(static::create($this->container)
+                ->inject([], function ($m, $v) {
+                    $m[$v[0]] = $v[1];
 
-        foreach ($this->container as $kv) {
-            $result[$kv[0]] = $kv[1];
-        }
-
-        return _::create($result);
+                    return $m;
+                }));
     }
 
     /**
