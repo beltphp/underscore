@@ -314,7 +314,7 @@ _::create(['A', 'B', 'C', 'AA'])->partition(function ($s) {
 #### `pluck`
 
 Returns a new array that is the result of retrieving the given property path on
-each element in the receiver.
+each element in the container.
 
 ```php
 _::create([new User('bob'), new User('alice')])->pluck('username'); // ['bob', 'alice']
@@ -431,7 +431,7 @@ _::create([1, 2, 3, 1, 2, 4, 1, 2, 5])->uniq(); // [3, 4, 5]
 #### `without`
 
 Returns a new array where objects in the given array are removed from the
-receiver.
+container.
 
 ```php
 _::create([1, 2, 4, 3])->without([4]); // [1, 2, 3]
