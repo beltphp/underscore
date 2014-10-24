@@ -440,7 +440,7 @@ _::create([1, 2, 3, 4, 5])->without([4, 5]); // [1, 2, 3]
 
 #### `pop`
 
-Treats receiver like a stack and removes the last object, returning it.
+Treats container like a stack and removes the last object, returning it.
 
 ```php
 _::create()->push(1)->push(2)->push(3)->pop(); // 3
