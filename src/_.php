@@ -224,6 +224,9 @@ class _
     }
 
     /**
+     * Returns the index of the given object in the container or `null` if the
+     * element was not found.
+     *
      * @param mixed
      *
      * @return integer|null
