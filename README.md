@@ -1,4 +1,9 @@
-# Belt.Underscore
+# Belt.`Underscore`
+
+> Pushing round things down square holes.
+
+Belt`.Underscore` is an utility library that makes working with arrays in PHP
+a little bit more pleasant.
 
 ## Installation
 
@@ -462,3 +467,16 @@ the container up one index.
 ```php
 _::create([2, 3])->unshift(1); // [1, 2, 3]
 ```
+
+## Contributing
+
+Please see [CONTRIBUTING](https://github.com/beltphp/underscore/blob/master/CONTRIBUTING.md).
+
+## Credits
+
+This project is heavily inspired by [YOLOKit](http://mxcl.github.io/YOLOKit/).
+For all of you who develop in Objective-C, I highly recomment you check it out!
+
+## License
+
+Please see [LICENSE](https://github.com/beltphp/underscore/blob/master/LICENSE).
