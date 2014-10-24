@@ -224,7 +224,7 @@ class _Test extends \PHPUnit_Framework_TestCase
 
     public function testSnip()
     {
-        $this->assertEquals([1, 2], _::create([1, 2, 3, 4])->snip(2)->toArray());
+        $this->assertEquals([1, 2], _::create([1, 2, 3, 4, 5, 6])->snip(2)->toArray());
     }
 
     public function testSort()

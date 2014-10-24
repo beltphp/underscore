@@ -494,7 +494,7 @@ class _
      */
     public function snip($n)
     {
-        return static::create(array_slice($this->container, 0, count($this->container) - $n));
+        return $this->without(array_splice($this->container, $n));
     }
 
     /**
