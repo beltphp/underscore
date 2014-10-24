@@ -190,13 +190,9 @@ class _
      */
     public function flatMap(Callable $callback)
     {
-        $result = [];
-
-        foreach ($this->container as $element) {
-            $result = array_merge($result, $callback($element));
-        }
-
-        return static::create($result);
+        return array_reduce($this->container, function ($r, $n) use ($callback) {
+            return $r->concat($callback($n));
+        }, static::create());
     }
 
     /**
