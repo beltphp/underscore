@@ -531,7 +531,7 @@ class _
     }
 
     /**
-     * Treats receiver like a stack and removes the last object, returning it.
+     * Treats container like a stack and removes the last object, returning it.
      *
      * @return mixed
      */
