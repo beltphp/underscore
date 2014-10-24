@@ -175,6 +175,9 @@ container.
 _::create([1, [2], [3, [4]]])->flatten(); [1, 2, 3, 4]
 ```
 
+> __Tip:__ If you only want to flatten one level of an array, `flatMap` might
+> be useful for you!
+
 #### `flatMap`
 
 Returns a new array with the concatenated results of invoking the callback
@@ -189,6 +192,19 @@ _::create([1, 2, 3, 4])->flatMap(function ($n) {
     return [$n, [$n]];
 }); // [1, [1], 2, [2], 3, [3], 4, [4]]
 ```
+
+It might look a bit silly, but this is actually a really useful function when
+you combine it with other functions! For example, you can create a dictionary
+for (fictional) users.
+
+```php
+_::create([new User('bob', 32), new User('alice', 35)])->flatMap(function ($u) {
+    return [$n->getName(), $n->getAge()];
+})->chunk(2)->dict(); // ['bob' => 32, 'alice' => 35]
+```
+
+Which finally allows us, as developers, to create key/value pairs when mapping
+arrays! Hoorah!
 
 #### `groupBy`
 
@@ -505,6 +521,18 @@ the container up one index.
 
 ```php
 _::create([2, 3])->unshift(1); // [1, 2, 3]
+```
+
+#### `first`, `last`, `skip`, `snip` & `slice`
+
+These functions are strongly related and useful to remember.
+
+```php
+_::create([1, 2, 3, 4, 5])->first(2);       // [1, 2]
+_::create([1, 2, 3, 4, 5])->last(2);        // [4, 5]
+_::create([1, 2, 3, 4, 5])->skip(2);        // [3, 4, 5]
+_::create([1, 2, 3, 4, 5])->snip(2);        // [1, 2, 3]
+_::create([1, 2, 3, 4, 5])->slice(2, 2);    // [3, 4]
 ```
 
 ## Contributing
