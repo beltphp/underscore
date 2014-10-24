@@ -478,6 +478,40 @@ class _
     }
 
     /**
+     * Returns the container, sorted.
+     *
+     * @return _
+     */
+    public function sort()
+    {
+        $result = $this->container;
+        sort($result);
+
+        return static::create(array_values($result));
+    }
+
+    /**
+     * Sorts all objects using the return value of the given callback as the
+     * sorting criteria.
+     *
+     * @param Callable
+     *
+     * @return _
+     */
+    public function sortBy(Callable $callback)
+    {
+        $result = [];
+
+        foreach ($this->container as $element) {
+            $result[$callback($element)] = $element;
+        }
+
+        ksort($result);
+
+        return static::create(array_values($result));
+    }
+
+    /**
      * Assumes that the container is an array of arrays and transposes the rows
      * and columns.
      *

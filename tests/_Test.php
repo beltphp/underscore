@@ -213,6 +213,22 @@ class _Test extends \PHPUnit_Framework_TestCase
         $this->assertEquals([1, 2], _::create([1, 2, 3, 4])->snip(2)->toArray());
     }
 
+    public function testSort()
+    {
+        $this->assertEquals([1, 2, 3, 4], _::create([4, 1, 3, 2])->sort()->toArray());
+    }
+
+    public function testSortBy()
+    {
+        $foo = (object) [ 'name' => 'foo' ];
+        $bar = (object) [ 'name' => 'bar' ];
+        $baz = (object) [ 'name' => 'baz' ];
+
+        $this->assertEquals([ $bar, $baz, $foo ], _::create([ $foo, $bar, $baz ])->sortBy(function ($o) {
+            return $o->name;
+        })->toArray());
+    }
+
     public function testTranspose()
     {
         $this->assertEquals([[1, 4], [2, 5], [3, 6]], _::create([[1, 2, 3], [4, 5, 6]])->transpose()->toArray());

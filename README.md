@@ -360,6 +360,29 @@ elements.
 _::create([1, 2, 3, 4, 5, 6])->snip(2); // [1, 2, 3, 4]
 ```
 
+#### `sort`
+
+Returns the container, sorted.
+
+```php
+_::create([1, 4, 2, 3])->sort(); // [1, 2, 3, 4]
+```
+
+#### `sortBy`
+
+Sorts all objects using the return value of the given callback as the sorting
+criteria.
+
+```php
+$rhombas = new Shape('rhombas');
+$ellipse = new Shape('ellipse');
+$hexagon = new Shape('hexagon');
+
+_::create([ $rhombas, $ellipse, $hexagon ])->sortBy(function ($s) {
+    return $s->getName();
+}); // [ $ellipse, $hexagon, $rhombas ]
+```
+
 #### `transpose`
 
 Assumes that the container is an array of arrays and transposes the rows and
