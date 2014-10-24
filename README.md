@@ -47,7 +47,8 @@ _::create($user->getFriends())->map(function ($f) {
 That's it!
 
 > __Note__: When, in the examples, the return value comment indicates an array
-> the actual return value is a new Underscore instance!
+> the actual return value is a new Underscore instance! You can get the actual
+> PHP array value by calling the `toArray` method.
 
 #### `all`
 
