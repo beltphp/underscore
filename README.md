@@ -3,6 +3,8 @@
 [![Latest Version](https://img.shields.io/github/release/beltphp/underscore.svg?style=flat-square)](https://github.com/beltphp/underscore/releases)
 [![Software License](http://img.shields.io/packagist/l/belt/underscore.svg?style=flat-square)](LICENSE)
 [![Build Status](https://img.shields.io/travis/beltphp/underscore/master.svg?style=flat-square)](https://travis-ci.org/beltphp/releases)
+[![Coverage Status](http://img.shields.io/scrutinizer/coverage/g/beltphp/underscore.svg?style=flat-square)](https://scrutinizer-ci.com/g/beltphp/underscore/code-structure)
+[![Quality Score](http://img.shields.io/scrutinizer/g/beltphp/underscore.svg?style=flat-square)](https://scrutinizer-ci.com/g/beltphp/underscore/)
 
 > Pushing round things down square holes.
 
