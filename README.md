@@ -361,6 +361,15 @@ Returns a new array that is the container, reversed.
 _::create([1, 2, 3, 4])->reverse(); // [4, 3, 2, 1]
 ```
 
+#### `rotate`
+
+Returns a new array rotated about the provided index.
+
+```php
+_::create([1, 2, 3, 4, 5, 6])->rotate(2); // [3, 4, 5, 6, 1, 2]
+_::create([1, 2, 3, 4, 5, 6])->rotate(-2); // [5, 6, 1, 2, 3, 4]
+```
+
 #### `select`
 
 Returns a new array containing all elements for which the given block returns

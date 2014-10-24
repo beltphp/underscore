@@ -444,6 +444,22 @@ class _
     }
 
     /**
+     * Returns a new array rotated about the provided index.
+     *
+     * @param integer
+     *
+     * @return _
+     */
+    public function rotate($pivot)
+    {
+        if ($pivot < 0) {
+            $pivot = count($this->container) + $pivot;
+        }
+
+        return $this->skip($pivot)->concat($this->snip($pivot)->toArray());
+    }
+
+    /**
      * Returns a new array containing all elements for which the given block
      * returns `true`.
      *
