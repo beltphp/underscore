@@ -655,4 +655,22 @@ class _
 
         return $this;
     }
+
+    /**
+     * Returns a new array of the strings in the given string that are separated
+     * by the given separator.
+     *
+     * @param string
+     * @param string|null
+     *
+     * @return _
+     */
+    public static function split($string, $seperator = null)
+    {
+        if (strlen((string) $seperator) == 0) {
+            return static::create(str_split($string));
+        } else {
+            return static::create(explode($seperator, $string));
+        }
+    }
 }

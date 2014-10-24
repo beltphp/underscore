@@ -300,4 +300,18 @@ class _Test extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals([1, 2, 3], _::create()->unshift(3)->unshift(2)->unshift(1)->toArray());
     }
+
+    public function testSplit()
+    {
+        $this->assertEquals(['f', 'o', 'o'], _::split('foo')->toArray());
+        $this->assertEquals(['f', 'o', 'o'], _::split('foo', '')->toArray());
+        $this->assertEquals(['f', 'o', 'o'], _::split('foo', null)->toArray());
+        $this->assertEquals(['foo', 'bar', 'baz'], _::split('foo bar baz', ' ')->toArray());
+
+        $this->assertEquals(10, _::split('1234')->map(function ($n) {
+            return (integer) $n;
+        })->reduce(function ($s, $n) {
+            return $s + $n;
+        }));
+    }
 }

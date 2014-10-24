@@ -523,6 +523,33 @@ the container up one index.
 _::create([2, 3])->unshift(1); // [1, 2, 3]
 ```
 
+#### `split`
+
+Returns a new array of the strings in the given string that are separated by the
+given separator.
+
+```php
+_::split('foo bar baz', ' '); // ['foo', 'bar', 'baz']
+```
+
+The second parameter is optional and `null` by default, if you pass `null` or
+an empty string as seperator, you will get an array of the individual characters
+in the given string.
+
+```php
+_::split('1234'); // ['1', '2', '3', '4']
+```
+
+We can do some pretty neat stuff with this!
+
+```php
+_::split('1234')->map(function ($n) {
+    return (integer) $n;
+})->reduce(function ($s, $n) {
+    return $s + $n;
+}); // 10
+```
+
 #### `first`, `last`, `skip`, `snip` & `slice`
 
 These functions are strongly related and useful to remember.
