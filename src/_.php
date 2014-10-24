@@ -246,11 +246,9 @@ class _
      */
     public function inject($memo, Callable $callback)
     {
-        foreach ($this->container as $element) {
-            $memo = $callback($memo, $element);
-        }
-
-        return $memo;
+        return array_reduce($this->container, function ($m, $e) use ($callback) {
+            return $callback($m, $e);
+        }, $memo);
     }
 
     /**
