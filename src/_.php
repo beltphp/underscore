@@ -128,9 +128,9 @@ class _
      */
     public function each(Callable $callback)
     {
-        for ($i = 0; $i < count($this->container); $i++) {
-            $callback($this->container[$i], $i, $this->container);
-        }
+        array_walk($this->container, function ($e, $i) use ($callback) {
+            $callback($e, $i, $this->container);
+        });
     }
 
     /**
