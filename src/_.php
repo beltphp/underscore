@@ -88,4 +88,17 @@ class _
     {
         return static::create(array_chunk($this->container, $n));
     }
+
+    /**
+     * Returns a new array that is the container with the given `array`
+     * concatenated to the end.
+     *
+     * @param array
+     *
+     * @return _
+     */
+    public function concat(array $array)
+    {
+        return static::create(array_merge($this->container, $array));
+    }
 }
