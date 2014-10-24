@@ -1,0 +1,36 @@
+{
+    "name": "belt/underscore",
+    "description": "Pushing square objects down round holes",
+    "keywords": [ "underscore", "toolkit" ],
+    "homepage": "https://github.com/beltphp/underscore",
+    "license": "BSD-2-Clause",
+    "authors": [
+        {
+            "name": "Ramon Kleiss",
+            "email": "ramonkleiss@gmail.com",
+            "homepage": "http://ramonkleiss.nl",
+            "role": "Developer"
+        }
+    ],
+    "require-dev": {
+        "php": ">=5.3.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit" : "4.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Belt\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Belt\\Test\\": "tests"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+}
