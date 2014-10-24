@@ -370,6 +370,14 @@ _::create([1, 2, 3, 4, 5, 6])->rotate(2); // [3, 4, 5, 6, 1, 2]
 _::create([1, 2, 3, 4, 5, 6])->rotate(-2); // [5, 6, 1, 2, 3, 4]
 ```
 
+#### `sample`
+
+Returns a random element from the container.
+
+```php
+_::create([1, 2, 3, 4, 5, 6])->sample(); // Basically a dice roll...
+```
+
 #### `select`
 
 Returns a new array containing all elements for which the given block returns

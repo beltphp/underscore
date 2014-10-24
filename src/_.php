@@ -460,6 +460,16 @@ class _
     }
 
     /**
+     * Returns a random element from the container.
+     *
+     * @return mixed
+     */
+    public function sample()
+    {
+        return $this->container[array_rand($this->container)];
+    }
+
+    /**
      * Returns a new array containing all elements for which the given block
      * returns `true`.
      *

@@ -211,6 +211,11 @@ class _Test extends \PHPUnit_Framework_TestCase
         $this->assertEquals([5, 6, 1, 2, 3, 4], _::create([1, 2, 3, 4, 5, 6])->rotate(-2)->toArray());
     }
 
+    public function testSample()
+    {
+        $this->assertContains(_::create([1, 2])->sample(), [1, 2]);
+    }
+
     public function testSelect()
     {
         $this->assertEquals([2, 4], _::create([1, 2, 3, 4])->select(function ($n) {
