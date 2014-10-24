@@ -389,6 +389,14 @@ _::create([1, 2, 3, 4])->select(function ($n) {
 }); // [2, 4]
 ```
 
+#### `shuffle`
+
+Returns a new array that is shuffled.
+
+```php
+_::create([1, 2])->shuffle(); // Either [1, 2] or [2, 1]
+```
+
 #### `skip`
 
 Skips the first `n` elements and returns the rest of the array.

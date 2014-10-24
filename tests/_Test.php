@@ -223,6 +223,11 @@ class _Test extends \PHPUnit_Framework_TestCase
         })->toArray());
     }
 
+    public function testShuffle()
+    {
+        $this->assertContains(_::create([1, 2])->shuffle()->toArray(), [[1, 2], [2, 1]]);
+    }
+
     public function testSkip()
     {
         $this->assertEquals([3, 4, 5, 6], _::create([1, 2, 3, 4, 5, 6])->skip(2)->toArray());

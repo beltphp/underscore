@@ -485,6 +485,19 @@ class _
     }
 
     /**
+     * Returns a new array that is shuffled.
+     *
+     * @return _
+     */
+    public function shuffle()
+    {
+        $result = $this->container;
+        shuffle($result);
+
+        return static::create($result);
+    }
+
+    /**
      * Skips the first `n` elements and returns the rest of the array.
      *
      * @param integer
