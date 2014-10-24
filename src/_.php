@@ -8,7 +8,7 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
  */
 class _
 {
-    /** @var array|string */
+    /** @var array */
     private $container;
 
     /**
