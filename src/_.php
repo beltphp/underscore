@@ -562,15 +562,7 @@ class _
      */
     public function without(array $filter)
     {
-        $result = [];
-
-        foreach ($this->container as $element) {
-            if (!in_array($element, $filter)) {
-                $result[] = $element;
-            }
-        }
-
-        return static::create($result);
+        return static::create(array_values(array_diff($this->container, $filter)));
     }
 
     /**
