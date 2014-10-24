@@ -1,0 +1,566 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Belt.Underscore by beltphp</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Belt.Underscore</h1>
+        <p>Pushing square things down round holes.</p>
+        <p class="view"><a href="https://github.com/beltphp/underscore">View the Project on GitHub <small>beltphp/underscore</small></a></p>
+        <ul>
+          <li><a href="https://github.com/beltphp/underscore/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/beltphp/underscore/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/beltphp/underscore">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a name="beltunderscore" class="anchor" href="#beltunderscore"><span class="octicon octicon-link"></span></a>Belt.<code>Underscore</code>
+</h1>
+
+<blockquote>
+<p>Pushing round things down square holes.</p>
+</blockquote>
+
+<p>Belt<code>.Underscore</code> is an utility library that makes working with arrays in PHP
+a little bit more pleasant.</p>
+
+<h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>Via Composer</p>
+
+<div class="highlight highlight-shell"><pre><span class="nv">$ </span>composer require belt/underscore
+</pre></div>
+
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>The following examples assume that you have included the Underscore utility:</p>
+
+<div class="highlight highlight-php"><pre><span class="k">use</span> <span class="nx">Belt\_</span><span class="p">;</span>
+</pre></div>
+
+<p>Some of the examples might seem a bit contrived, but they're actually really
+handy. For example, let's say that we have a fictional social network and (for
+some reason) we want to get the names of all the authenticated user's 2nd
+degree friends (friends-of-friends) that are over the age of 18. Suddenly, that
+becomes real easy!</p>
+
+<div class="highlight highlight-php"><pre><span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">(</span><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">getFriends</span><span class="p">())</span><span class="o">-&gt;</span><span class="na">map</span><span class="p">(</span><span class="k">function</span> <span class="p">(</span><span class="nv">$f</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$f</span><span class="o">-&gt;</span><span class="na">getFriends</span><span class="p">();</span>
+<span class="p">})</span><span class="o">-&gt;</span><span class="na">select</span><span class="p">(</span><span class="k">function</span> <span class="p">(</span><span class="nv">$f</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$f</span><span class="o">-&gt;</span><span class="na">getAge</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">18</span><span class="p">;</span>
+<span class="p">})</span><span class="o">-&gt;</span><span class="na">pluck</span><span class="p">(</span><span class="s1">'username'</span><span class="p">);</span>
+</pre></div>
+
+<p>And now (for some even stranger reason) we want to know the total number of
+<em>third</em> degree friends (friends-of-friends-of-friends) of the 2nd degree friends
+that are over the age of 18.</p>
+
+<div class="highlight highlight-php"><pre><span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">(</span><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">getFriends</span><span class="p">())</span><span class="o">-&gt;</span><span class="na">map</span><span class="p">(</span><span class="k">function</span> <span class="p">(</span><span class="nv">$f</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$f</span><span class="o">-&gt;</span><span class="na">getFriends</span><span class="p">();</span>
+<span class="p">})</span><span class="o">-&gt;</span><span class="na">select</span><span class="p">(</span><span class="k">function</span> <span class="p">(</span><span class="nv">$f</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$f</span><span class="o">-&gt;</span><span class="na">getAge</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">18</span><span class="p">;</span>
+<span class="p">})</span><span class="o">-&gt;</span><span class="na">reduce</span><span class="p">(</span><span class="k">function</span> <span class="p">(</span><span class="nv">$s</span><span class="p">,</span> <span class="nv">$f</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$s</span> <span class="o">+</span> <span class="nb">count</span><span class="p">(</span><span class="nv">$f</span><span class="o">-&gt;</span><span class="na">getFriends</span><span class="p">());</span>
+<span class="p">});</span>
+</pre></div>
+
+<p>That's it!</p>
+
+<blockquote>
+<p><strong>Note</strong>: When, in the examples, the return value comment indicates an array
+the actual return value is a new Underscore instance! You can get the actual
+PHP array value by calling the <code>toArray</code> method.</p>
+</blockquote>
+
+<h4>
+<a name="all" class="anchor" href="#all"><span class="octicon octicon-link"></span></a><code>all</code>
+</h4>
+
+<p>Call the given <code>callback</code> for each element in the container. Should the callback
+return <code>false</code>, the method immediately returns <code>false</code> and ceases enumeration.
+If all invocations of the callback return <code>true</code>, <code>all</code> returns <code>true</code>.</p>
+
+<div class="highlight highlight-php"><pre><span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">all</span><span class="p">(</span><span class="k">function</span> <span class="p">(</span><span class="nv">$n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$n</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">});</span> <span class="c1">// true</span>
+</pre></div>
+
+<h4>
+<a name="any" class="anchor" href="#any"><span class="octicon octicon-link"></span></a><code>any</code>
+</h4>
+
+<p>Call the given <code>callback</code> for each element in the container. Should the callback
+return <code>true</code>, the method immediately returns <code>true</code> and enumeration is ceased.
+If all invocations of the callback return <code>false</code>, <code>any</code> returns <code>false</code>.</p>
+
+<div class="highlight highlight-php"><pre><span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">any</span><span class="p">(</span><span class="k">function</span> <span class="p">(</span><span class="nv">$n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$n</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">});</span> <span class="c1">// true</span>
+</pre></div>
+
+<h4>
+<a name="chunk" class="anchor" href="#chunk"><span class="octicon octicon-link"></span></a><code>chunk</code>
+</h4>
+
+<p>Chunks the container into a new array of <code>n</code>-sized chunks.</p>
+
+<div class="highlight highlight-php"><pre><span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">chunk</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span> <span class="c1">// [[1, 2], [3, 4]]</span>
+</pre></div>
+
+<h4>
+<a name="concat" class="anchor" href="#concat"><span class="octicon octicon-link"></span></a><code>concat</code>
+</h4>
+
+<p>Returns a new array that is the container with the given <code>array</code> concatenated
+to the end.</p>
+
+<div class="highlight highlight-php"><pre><span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">concat</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]);</span> <span class="c1">// [1, 2, 3, 4]</span>
+</pre></div>
+
+<h4>
+<a name="dict" class="anchor" href="#dict"><span class="octicon octicon-link"></span></a><code>dict</code>
+</h4>
+
+<p>Convert an array of key/value pairs into the logical dictionary.</p>
+
+<div class="highlight highlight-php"><pre><span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span><span class="o">-&gt;</span><span class="na">dict</span><span class="p">();</span> <span class="c1">// [1 =&gt; 2, 3 =&gt; 4]</span>
+</pre></div>
+
+<p>If you have a flat array you can call <code>chunk(2)</code> before <code>dict</code>.</p>
+
+<div class="highlight highlight-php"><pre><span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">chunk</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">dict</span><span class="p">();</span> <span class="c1">// [1 =&gt; 2, 3 =&gt; 4]</span>
+</pre></div>
+
+<h4>
+<a name="each" class="anchor" href="#each"><span class="octicon octicon-link"></span></a><code>each</code>
+</h4>
+
+<p>Calls the given callback once for each element in the container, passing that
+element as the argument.</p>
+
+<div class="highlight highlight-php"><pre><span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">each</span><span class="p">(</span><span class="k">function</span> <span class="p">(</span><span class="nv">$n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nb">printf</span><span class="p">(</span><span class="s2">"%d</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="nv">$n</span><span class="p">);</span>
+<span class="p">});</span> <span class="c1">// outputs: 1\n2\n3\n4\n</span>
+</pre></div>
+
+<p><code>each</code> also supports two and three parameter versions:</p>
+
+<div class="highlight highlight-php"><pre><span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">each</span><span class="p">(</span><span class="k">function</span> <span class="p">(</span><span class="nv">$n</span><span class="p">,</span> <span class="nv">$i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nb">printf</span><span class="p">(</span><span class="s2">"%d: %d</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="nv">$i</span><span class="p">,</span> <span class="nv">$n</span><span class="p">);</span>
+<span class="p">});</span> <span class="c1">//outputs: 0: 1\n1: 2\n2: 3\n3: 4\n</span>
+
+<span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">each</span><span class="p">(</span><span class="k">function</span> <span class="p">(</span><span class="nv">$n</span><span class="p">,</span> <span class="nv">$i</span><span class="p">,</span> <span class="nv">$array</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}));</span>
+</pre></div>
+
+<h4>
+<a name="find" class="anchor" href="#find"><span class="octicon octicon-link"></span></a><code>find</code>
+</h4>
+
+<p>Passes each entry in the container to the given callback, returning the first
+element for which callback is not <code>false</code>. If no entry matches, returns <code>null</code>.</p>
+
+<div class="highlight highlight-php"><pre><span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">find</span><span class="p">(</span><span class="k">function</span> <span class="p">(</span><span class="nv">$n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$n</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">});</span> <span class="c1">// 3</span>
+</pre></div>
+
+<h4>
+<a name="first" class="anchor" href="#first"><span class="octicon octicon-link"></span></a><code>first</code>
+</h4>
+
+<p>Returns the first <code>n</code> elements in the container.</p>
+
+<div class="highlight highlight-php"><pre><span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">first</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span> <span class="c1">// [1, 2]</span>
+</pre></div>
+
+<h4>
+<a name="flatten" class="anchor" href="#flatten"><span class="octicon octicon-link"></span></a><code>flatten</code>
+</h4>
+
+<p>Returns a new, one-dimensional array that is a recursive flattening of the
+container.</p>
+
+<div class="highlight highlight-php"><pre><span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="p">[</span><span class="mi">4</span><span class="p">]]])</span><span class="o">-&gt;</span><span class="na">flatten</span><span class="p">();</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+</pre></div>
+
+<h4>
+<a name="flatmap" class="anchor" href="#flatmap"><span class="octicon octicon-link"></span></a><code>flatMap</code>
+</h4>
+
+<p>Returns a new array with the concatenated results of invoking the callback
+once for every element in the container.</p>
+
+<div class="highlight highlight-php"><pre><span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">flatMap</span><span class="p">(</span><span class="k">function</span> <span class="p">(</span><span class="nv">$n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">[</span><span class="nv">$n</span><span class="p">,</span> <span class="nv">$n</span><span class="p">];</span>
+<span class="p">});</span> <span class="c1">// [1, 1, 2, 2, 3, 3, 4, 4]</span>
+
+<span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">flatMap</span><span class="p">(</span><span class="k">function</span> <span class="p">(</span><span class="nv">$n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">[</span><span class="nv">$n</span><span class="p">,</span> <span class="p">[</span><span class="nv">$n</span><span class="p">]];</span>
+<span class="p">});</span> <span class="c1">// [1, [1], 2, [2], 3, [3], 4, [4]]</span>
+</pre></div>
+
+<h4>
+<a name="groupby" class="anchor" href="#groupby"><span class="octicon octicon-link"></span></a><code>groupBy</code>
+</h4>
+
+<p>Groups the container by result of the given callback.</p>
+
+<div class="highlight highlight-php"><pre><span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">groupBy</span><span class="p">(</span><span class="k">function</span> <span class="p">(</span><span class="nv">$n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$n</span> <span class="o">%</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">});</span> <span class="c1">// [0 =&gt; [2, 4], 1 =&gt; [1, 3]]</span>
+
+<span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="s1">'foo'</span><span class="p">,</span> <span class="s1">'bar'</span><span class="p">,</span> <span class="s1">'baz'</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">groupBy</span><span class="p">(</span><span class="k">function</span> <span class="p">(</span><span class="nv">$s</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$s</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+<span class="p">});</span> <span class="c1">// ['f' =&gt; ['foo'], 'b' =&gt; ['bar', 'baz']]</span>
+</pre></div>
+
+<h4>
+<a name="has" class="anchor" href="#has"><span class="octicon octicon-link"></span></a><code>has</code>
+</h4>
+
+<div class="highlight highlight-php"><pre><span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">has</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span> <span class="c1">// true</span>
+<span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">has</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> <span class="c1">// false</span>
+</pre></div>
+
+<h4>
+<a name="indexof" class="anchor" href="#indexof"><span class="octicon octicon-link"></span></a><code>indexOf</code>
+</h4>
+
+<p>Returns the index of the given object in the container or <code>null</code> if the element
+was not found.</p>
+
+<div class="highlight highlight-php"><pre><span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">indexOf</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span> <span class="c1">// 1</span>
+<span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">indexOf</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> <span class="c1">// null</span>
+</pre></div>
+
+<h4>
+<a name="inject" class="anchor" href="#inject"><span class="octicon octicon-link"></span></a><code>inject</code>
+</h4>
+
+<p>Combines all elements of the container by applying a binary operation.</p>
+
+<div class="highlight highlight-php"><pre><span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">inject</span><span class="p">([],</span> <span class="k">function</span> <span class="p">(</span><span class="nv">$m</span><span class="p">,</span> <span class="nv">$n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nv">$m</span><span class="p">[</span><span class="nv">$n</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$n</span> <span class="o">*</span> <span class="nv">$n</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="nv">$m</span><span class="p">;</span>
+<span class="p">});</span> <span class="c1">// [1 =&gt; 1, 2 =&gt; 4, 3 =&gt; 9]</span>
+
+<span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="s1">'foo'</span><span class="p">,</span> <span class="s1">'bar'</span><span class="p">,</span> <span class="s1">'baz'</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">inject</span><span class="p">(</span><span class="s1">''</span><span class="p">,</span> <span class="k">function</span> <span class="p">(</span><span class="nv">$m</span><span class="p">,</span> <span class="nv">$s</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nv">$m</span> <span class="o">.=</span> <span class="nv">$s</span><span class="p">;</span>
+<span class="p">});</span> <span class="c1">// foobarbaz</span>
+</pre></div>
+
+<blockquote>
+<p><strong>Note</strong>: This is the only exception to the note earlier. The return value
+here is the return value of the <em>last</em> itertation.</p>
+</blockquote>
+
+<h4>
+<a name="join" class="anchor" href="#join"><span class="octicon octicon-link"></span></a><code>join</code>
+</h4>
+
+<p>Returns a string of all the container's elements joined with the provided
+separator string.</p>
+
+<div class="highlight highlight-php"><pre><span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">join</span><span class="p">(</span><span class="s1">''</span><span class="p">);</span>  <span class="c1">// 1234</span>
+<span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">join</span><span class="p">(</span><span class="s1">','</span><span class="p">);</span> <span class="c1">// 1,2,3,4</span>
+</pre></div>
+
+<h4>
+<a name="last" class="anchor" href="#last"><span class="octicon octicon-link"></span></a><code>last</code>
+</h4>
+
+<p>Returns the last <code>n</code> elements from the container.</p>
+
+<div class="highlight highlight-php"><pre><span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">last</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span> <span class="c1">// [5, 6]</span>
+</pre></div>
+
+<h4>
+<a name="map" class="anchor" href="#map"><span class="octicon octicon-link"></span></a><code>map</code>
+</h4>
+
+<p>Invokes the given callback for each element in the container. Creates a new
+array containing the values returned by the block.</p>
+
+<p>If the given callback returns <code>null</code>, that element is skipped in the returned
+array.</p>
+
+<div class="highlight highlight-php"><pre><span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">map</span><span class="p">(</span><span class="k">function</span> <span class="p">(</span><span class="nv">$n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$n</span> <span class="o">*</span> <span class="nv">$n</span><span class="p">;</span>
+<span class="p">});</span> <span class="c1">// [1, 4, 9, 16]</span>
+
+<span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">map</span><span class="p">(</span><span class="k">function</span> <span class="p">(</span><span class="nv">$n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$n</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">?</span> <span class="nv">$n</span> <span class="o">*</span> <span class="nv">$n</span> <span class="o">:</span> <span class="k">null</span><span class="p">;</span>
+<span class="p">});</span> <span class="c1">// [1, 9]</span>
+</pre></div>
+
+<h4>
+<a name="max" class="anchor" href="#max"><span class="octicon octicon-link"></span></a><code>max</code>
+</h4>
+
+<p>Returns the element for which the given callback returns the largest integer.</p>
+
+<div class="highlight highlight-php"><pre><span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">(</span><span class="s1">'1'</span><span class="p">,</span> <span class="s1">'two'</span><span class="p">,</span> <span class="s1">'three'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">max</span><span class="p">(</span><span class="k">function</span> <span class="p">(</span><span class="nv">$s</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nb">strlen</span><span class="p">(</span><span class="nv">$s</span><span class="p">);</span>
+<span class="p">});</span> <span class="c1">// 'three'</span>
+</pre></div>
+
+<h4>
+<a name="min" class="anchor" href="#min"><span class="octicon octicon-link"></span></a><code>min</code>
+</h4>
+
+<p>Returns the element for which the given callback returns the smallest integer.</p>
+
+<div class="highlight highlight-php"><pre><span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">(</span><span class="s1">'1'</span><span class="p">,</span> <span class="s1">'two'</span><span class="p">,</span> <span class="s1">'three'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">min</span><span class="p">(</span><span class="k">function</span> <span class="p">(</span><span class="nv">$s</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nb">strlen</span><span class="p">(</span><span class="nv">$s</span><span class="p">);</span>
+<span class="p">});</span> <span class="c1">// '1'</span>
+</pre></div>
+
+<h4>
+<a name="none" class="anchor" href="#none"><span class="octicon octicon-link"></span></a><code>none</code>
+</h4>
+
+<p>Test if the given callback returns <code>false</code> for each element in the container.</p>
+
+<div class="highlight highlight-php"><pre><span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">none</span><span class="p">(</span><span class="k">function</span> <span class="p">(</span><span class="nv">$n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$n</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">});</span> <span class="c1">// true</span>
+
+<span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">none</span><span class="p">(</span><span class="k">function</span> <span class="p">(</span><span class="nv">$n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$n</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">});</span> <span class="c1">// false</span>
+</pre></div>
+
+<h4>
+<a name="partition" class="anchor" href="#partition"><span class="octicon octicon-link"></span></a><code>partition</code>
+</h4>
+
+<p>Partitions the container into two arrays based on the boolean return value of
+the given block.</p>
+
+<div class="highlight highlight-php"><pre><span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="s1">'A'</span><span class="p">,</span> <span class="s1">'B'</span><span class="p">,</span> <span class="s1">'C'</span><span class="p">,</span> <span class="s1">'AA'</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">partition</span><span class="p">(</span><span class="k">function</span> <span class="p">(</span><span class="nv">$s</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'A'</span><span class="p">;</span>
+<span class="p">});</span> <span class="c1">// [['A', 'AA'], ['B', 'C']]</span>
+</pre></div>
+
+<h4>
+<a name="pluck" class="anchor" href="#pluck"><span class="octicon octicon-link"></span></a><code>pluck</code>
+</h4>
+
+<p>Returns a new array that is the result of retrieving the given property path on
+each element in the receiver.</p>
+
+<div class="highlight highlight-php"><pre><span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="k">new</span> <span class="nx">User</span><span class="p">(</span><span class="s1">'bob'</span><span class="p">),</span> <span class="k">new</span> <span class="nx">User</span><span class="p">(</span><span class="s1">'alice'</span><span class="p">)])</span><span class="o">-&gt;</span><span class="na">pluck</span><span class="p">(</span><span class="s1">'username'</span><span class="p">);</span> <span class="c1">// ['bob', 'alice']</span>
+</pre></div>
+
+<h4>
+<a name="reduce" class="anchor" href="#reduce"><span class="octicon octicon-link"></span></a><code>reduce</code>
+</h4>
+
+<p>Reduces the container to a single value.</p>
+
+<p>The usual example of reduce is to sum all values in an array.</p>
+
+<div class="highlight highlight-php"><pre><span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">reduce</span><span class="p">(</span><span class="k">function</span> <span class="p">(</span><span class="nv">$memo</span><span class="p">,</span> <span class="nv">$n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$memo</span> <span class="o">+</span> <span class="nv">$n</span><span class="p">;</span>
+<span class="p">});</span> <span class="c1">// 10</span>
+</pre></div>
+
+<h4>
+<a name="reject" class="anchor" href="#reject"><span class="octicon octicon-link"></span></a><code>reject</code>
+</h4>
+
+<p>Returns a new array containing all elements for which the given callback
+returns <code>false</code>.</p>
+
+<div class="highlight highlight-php"><pre><span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">reject</span><span class="p">(</span><span class="k">function</span> <span class="p">(</span><span class="nv">$n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span><span class="nv">$n</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">});</span> <span class="c1">// [1, 3]</span>
+</pre></div>
+
+<h4>
+<a name="reverse" class="anchor" href="#reverse"><span class="octicon octicon-link"></span></a><code>reverse</code>
+</h4>
+
+<p>Returns a new array that is the container, reversed.</p>
+
+<div class="highlight highlight-php"><pre><span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">reverse</span><span class="p">();</span> <span class="c1">// [4, 3, 2, 1]</span>
+</pre></div>
+
+<h4>
+<a name="select" class="anchor" href="#select"><span class="octicon octicon-link"></span></a><code>select</code>
+</h4>
+
+<p>Returns a new array containing all elements for which the given block returns
+<code>true</code>.</p>
+
+<div class="highlight highlight-php"><pre><span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">select</span><span class="p">(</span><span class="k">function</span> <span class="p">(</span><span class="nv">$n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span><span class="nv">$n</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">});</span> <span class="c1">// [2, 4]</span>
+</pre></div>
+
+<h4>
+<a name="skip" class="anchor" href="#skip"><span class="octicon octicon-link"></span></a><code>skip</code>
+</h4>
+
+<p>Skips the first <code>n</code> elements and returns the rest of the array.</p>
+
+<div class="highlight highlight-php"><pre><span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">skip</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span> <span class="c1">// [3, 4, 5, 6]</span>
+</pre></div>
+
+<h4>
+<a name="slice" class="anchor" href="#slice"><span class="octicon octicon-link"></span></a><code>slice</code>
+</h4>
+
+<p>Returns a subarray consisting of the given number of elements from the given
+starting index.</p>
+
+<div class="highlight highlight-php"><pre><span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span> <span class="c1">// [2, 3]</span>
+</pre></div>
+
+<h4>
+<a name="snip" class="anchor" href="#snip"><span class="octicon octicon-link"></span></a><code>snip</code>
+</h4>
+
+<p>Snips the end off the array. Returns the container <em>without</em> the last <code>n</code>
+elements.</p>
+
+<div class="highlight highlight-php"><pre><span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">snip</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span> <span class="c1">// [1, 2, 3, 4]</span>
+</pre></div>
+
+<h4>
+<a name="sort" class="anchor" href="#sort"><span class="octicon octicon-link"></span></a><code>sort</code>
+</h4>
+
+<p>Returns the container, sorted.</p>
+
+<div class="highlight highlight-php"><pre><span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">sort</span><span class="p">();</span> <span class="c1">// [1, 2, 3, 4]</span>
+</pre></div>
+
+<h4>
+<a name="sortby" class="anchor" href="#sortby"><span class="octicon octicon-link"></span></a><code>sortBy</code>
+</h4>
+
+<p>Sorts all objects using the return value of the given callback as the sorting
+criteria.</p>
+
+<div class="highlight highlight-php"><pre><span class="nv">$rhombas</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Shape</span><span class="p">(</span><span class="s1">'rhombas'</span><span class="p">);</span>
+<span class="nv">$ellipse</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Shape</span><span class="p">(</span><span class="s1">'ellipse'</span><span class="p">);</span>
+<span class="nv">$hexagon</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Shape</span><span class="p">(</span><span class="s1">'hexagon'</span><span class="p">);</span>
+
+<span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span> <span class="nv">$rhombas</span><span class="p">,</span> <span class="nv">$ellipse</span><span class="p">,</span> <span class="nv">$hexagon</span> <span class="p">])</span><span class="o">-&gt;</span><span class="na">sortBy</span><span class="p">(</span><span class="k">function</span> <span class="p">(</span><span class="nv">$s</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$s</span><span class="o">-&gt;</span><span class="na">getName</span><span class="p">();</span>
+<span class="p">});</span> <span class="c1">// [ $ellipse, $hexagon, $rhombas ]</span>
+</pre></div>
+
+<h4>
+<a name="transpose" class="anchor" href="#transpose"><span class="octicon octicon-link"></span></a><code>transpose</code>
+</h4>
+
+<p>Assumes that the container is an array of arrays and transposes the rows and
+columns.</p>
+
+<div class="highlight highlight-php"><pre><span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]])</span><span class="o">-&gt;</span><span class="na">transpose</span><span class="p">();</span> <span class="c1">// [[1, 4], [2, 5], [3, 6]]</span>
+</pre></div>
+
+<h4>
+<a name="uniq" class="anchor" href="#uniq"><span class="octicon octicon-link"></span></a><code>uniq</code>
+</h4>
+
+<p>Returns a new array by removing duplicate values in the container.</p>
+
+<div class="highlight highlight-php"><pre><span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">uniq</span><span class="p">();</span> <span class="c1">// [3, 4, 5]</span>
+</pre></div>
+
+<h4>
+<a name="without" class="anchor" href="#without"><span class="octicon octicon-link"></span></a><code>without</code>
+</h4>
+
+<p>Returns a new array where objects in the given array are removed from the
+receiver.</p>
+
+<div class="highlight highlight-php"><pre><span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">without</span><span class="p">([</span><span class="mi">4</span><span class="p">]);</span> <span class="c1">// [1, 2, 3]</span>
+<span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">without</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]);</span> <span class="c1">// [1, 2, 3]</span>
+</pre></div>
+
+<h4>
+<a name="pop" class="anchor" href="#pop"><span class="octicon octicon-link"></span></a><code>pop</code>
+</h4>
+
+<p>Treats receiver like a stack and removes the last object, returning it.</p>
+
+<div class="highlight highlight-php"><pre><span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">push</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">push</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">push</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">pop</span><span class="p">();</span> <span class="c1">// 3</span>
+</pre></div>
+
+<h4>
+<a name="push" class="anchor" href="#push"><span class="octicon octicon-link"></span></a><code>push</code>
+</h4>
+
+<p>Treats container like a stack and adds the given object to the end of the
+container.</p>
+
+<div class="highlight highlight-php"><pre><span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">push</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">push</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">push</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span> <span class="c1">// [1, 2, 3]</span>
+</pre></div>
+
+<h4>
+<a name="shift" class="anchor" href="#shift"><span class="octicon octicon-link"></span></a><code>shift</code>
+</h4>
+
+<p>Removes the container's first object and returns it.</p>
+
+<div class="highlight highlight-php"><pre><span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">shift</span><span class="p">();</span> <span class="c1">// 1</span>
+</pre></div>
+
+<h4>
+<a name="unshift" class="anchor" href="#unshift"><span class="octicon octicon-link"></span></a><code>unshift</code>
+</h4>
+
+<p>Inserts the given object at the front of container, moving all other objects in
+the container up one index.</p>
+
+<div class="highlight highlight-php"><pre><span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">unshift</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="c1">// [1, 2, 3]</span>
+</pre></div>
+
+<h2>
+<a name="contributing" class="anchor" href="#contributing"><span class="octicon octicon-link"></span></a>Contributing</h2>
+
+<p>Please see <a href="https://github.com/beltphp/underscore/blob/master/CONTRIBUTING.md">CONTRIBUTING</a>.</p>
+
+<h2>
+<a name="credits" class="anchor" href="#credits"><span class="octicon octicon-link"></span></a>Credits</h2>
+
+<p>This project is heavily inspired by <a href="http://mxcl.github.io/YOLOKit/">YOLOKit</a>.
+For all of you who develop in Objective-C, I highly recomment you check it out!</p>
+
+<h2>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p>Please see <a href="https://github.com/beltphp/underscore/blob/master/LICENSE">LICENSE</a>.</p>
+      </section>
+    </div>
+    <footer>
+      <p>Project maintained by <a href="https://github.com/beltphp">beltphp</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+    </footer>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
