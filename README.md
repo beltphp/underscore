@@ -10,6 +10,47 @@ $ composer require belt/underscore
 
 ## Usage
 
+The following examples assume that you have included the Underscore utility:
+
+```php
+use Belt\_;
+```
+
+Some of the examples might seem a bit contrived, but they're actually really
+handy. For example, let's say that we have a fictional social network and (for
+some reason) we want to get the names of all the authenticated user's 2nd
+degree friends (friends-of-friends) that are over the age of 18. Suddenly, that
+becomes real easy!
+
+```php
+_::create($user->getFriends())->map(function ($f) {
+    return $f->getFriends();
+})->select(function ($f) {
+    return $f->getAge() > 18;
+})->pluck('username');
+```
+
+And now (for some even stranger reason) we want to know the total number of
+_third_ degree friends (friends-of-friends-of-friends) of the 2nd degree friends
+that are over the age of 18.
+
+```php
+_::create($user->getFriends())->map(function ($f) {
+    return $f->getFriends();
+})->select(function ($f) {
+    return $f->getAge() > 18;
+})->map(function ($f) {
+    return $f->getFriends();
+})->reduce(function ($s, $f) {
+    return $s + count($f->getFriends());
+});
+```
+
+That's it!
+
+> __Note__: When, in the examples, the return value indicates an array the
+> actual return value is a new Underscore instance!
+
 #### `all`
 
 Call the given `callback` for each element in the container. Should the callback
