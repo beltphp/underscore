@@ -237,6 +237,23 @@ class _
     }
 
     /**
+     * Combines all elements of the container by applying a binary operation.
+     *
+     * @param mixed
+     * @param Callable
+     *
+     * @return mixed
+     */
+    public function inject($memo, Callable $callback)
+    {
+        foreach ($this->container as $element) {
+            $memo = $callback($memo, $element);
+        }
+
+        return $memo;
+    }
+
+    /**
      * Returns a string of all the container's elements joined with the provided
      * separator string.
      *

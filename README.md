@@ -202,6 +202,25 @@ _::create([1, 2, 3, 4])->indexOf(2); // 1
 _::create([1, 2, 3, 4])->indexOf(0); // null
 ```
 
+#### `inject`
+
+Combines all elements of the container by applying a binary operation.
+
+```php
+_::create([1, 2, 3])->inject([], function ($m, $n) {
+    $m[$n] = $n * $n;
+
+    return $m;
+}); // [1 => 1, 2 => 4, 3 => 9]
+
+_::create(['foo', 'bar', 'baz'])->inject('', function ($m, $s) {
+    $m .= $s;
+}); // foobarbaz
+```
+
+> __Note__: This is the only exception to the note earlier. The return value
+> here is the return value of the _last_ itertation.
+
 #### `join`
 
 Returns a string of all the container's elements joined with the provided

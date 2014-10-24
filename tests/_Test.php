@@ -106,6 +106,15 @@ class _Test extends \PHPUnit_Framework_TestCase
         $this->assertNull(_::create([1, 2, 3, 4])->indexOf(0));
     }
 
+    public function testInject()
+    {
+        $this->assertEquals([1 => 1, 2 => 4, 3 => 9], _::create([1, 2, 3])->inject([], function ($m, $n) {
+            $m[$n] = $n * $n;
+
+            return $m;
+        }));
+    }
+
     public function testJoin()
     {
         $this->assertEquals('1234', _::create([1, 2, 3, 4])->join(''));
