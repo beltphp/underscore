@@ -498,7 +498,7 @@ Please see [CONTRIBUTING](https://github.com/beltphp/underscore/blob/master/CONT
 ## Credits
 
 This project is heavily inspired by [YOLOKit](http://mxcl.github.io/YOLOKit/).
-For all of you who develop in Objective-C, I highly recomment you check it out!
+For all of you who develop in Objective-C, I highly recommend you check it out!
 
 ## License
 
