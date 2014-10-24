@@ -10,7 +10,7 @@ $ composer require belt/underscore
 
 ## Usage
 
-### `all`
+#### `all`
 
 Call the given `callback` for each element in the container. Should the callback
 return `false`, the method immediately returns `false` and ceases enumeration.
@@ -22,7 +22,7 @@ _::create([1, 2, 3])->all(function ($n) {
 }); // true
 ```
 
-### `any`
+#### `any`
 
 Call the given `callback` for each element in the container. Should the callback
 return `true`, the method immediately returns `true` and enumeration is ceased.
@@ -34,7 +34,7 @@ _::create([1, 2, 3])->any(function ($n) {
 }); // true
 ```
 
-### `chunk`
+#### `chunk`
 
 Chunks the container into a new array of `n`-sized chunks.
 
@@ -42,7 +42,7 @@ Chunks the container into a new array of `n`-sized chunks.
 _::create([1, 2, 3, 4])->chunk(2); // [[1, 2], [3, 4]]
 ```
 
-### `concat`
+#### `concat`
 
 Returns a new array that is the container with the given `array` concatenated
 to the end.
@@ -51,7 +51,7 @@ to the end.
 _::create([1, 2])->concat([3, 4]); // [1, 2, 3, 4]
 ```
 
-### `dict`
+#### `dict`
 
 Convert an array of key/value pairs into the logical dictionary.
 
@@ -65,7 +65,7 @@ If you have a flat array you can call `chunk(2)` before `dict`.
 _::create([1, 2, 3, 4])->chunk(2)->dict(); // [1 => 2, 3 => 4]
 ```
 
-### `each`
+#### `each`
 
 Calls the given callback once for each element in the container, passing that
 element as the argument.
@@ -88,7 +88,7 @@ _::create([1, 2, 3, 4]->each(function ($n, $i, $array) {
 }));
 ```
 
-### `find`
+#### `find`
 
 Passes each entry in the container to the given callback, returning the first
 element for which callback is not `false`. If no entry matches, returns `null`.
@@ -99,7 +99,7 @@ _::create([1, 2, 3, 4])->find(function ($n) {
 }); // 3
 ```
 
-### `first`
+#### `first`
 
 Returns the first `n` elements in the container.
 
@@ -107,7 +107,7 @@ Returns the first `n` elements in the container.
 _::create([1, 2, 3, 4])->first(2); // [1, 2]
 ```
 
-### `flatten`
+#### `flatten`
 
 Returns a new, one-dimensional array that is a recursive flattening of the
 container.
@@ -116,7 +116,7 @@ container.
 _::create([1, [2], [3, [4]]])->flatten(); [1, 2, 3, 4]
 ```
 
-### `flatMap`
+#### `flatMap`
 
 Returns a new array with the concatenated results of invoking the callback
 once for every element in the container.
@@ -131,7 +131,7 @@ _::create([1, 2, 3, 4])->flatMap(function ($n) {
 }); // [1, [1], 2, [2], 3, [3], 4, [4]]
 ```
 
-### `groupBy`
+#### `groupBy`
 
 Groups the container by result of the given callback.
 
@@ -145,14 +145,14 @@ _::create(['foo', 'bar', 'baz'])->groupBy(function ($s) {
 }); // ['f' => ['foo'], 'b' => ['bar', 'baz']]
 ```
 
-### `has`
+#### `has`
 
 ```php
 _::create([1, 2, 3, 4])->has(2); // true
 _::create([1, 2, 3, 4])->has(0); // false
 ```
 
-### `indexOf`
+#### `indexOf`
 
 Returns the index of the given object in the container or `null` if the element
 was not found.
@@ -162,7 +162,7 @@ _::create([1, 2, 3, 4])->indexOf(2); // 1
 _::create([1, 2, 3, 4])->indexOf(0); // null
 ```
 
-### `join`
+#### `join`
 
 Returns a string of all the container's elements joined with the provided
 separator string.
@@ -172,7 +172,7 @@ _::create([1, 2, 3, 4])->join('');  // 1234
 _::create([1, 2, 3, 4])->join(','); // 1,2,3,4
 ```
 
-### `last`
+#### `last`
 
 Returns the last `n` elements from the container.
 
@@ -180,7 +180,7 @@ Returns the last `n` elements from the container.
 _::create([1, 2, 3, 4, 5, 6])->last(2); // [5, 6]
 ```
 
-### `map`
+#### `map`
 
 Invokes the given callback for each element in the container. Creates a new
 array containing the values returned by the block.
@@ -198,7 +198,7 @@ _::create([1, 2, 3, 4])->map(function ($n) {
 }); // [1, 9]
 ```
 
-### `max`
+#### `max`
 
 Returns the element for which the given callback returns the largest integer.
 
@@ -208,7 +208,7 @@ _::create('1', 'two', 'three')->max(function ($s) {
 }); // 'three'
 ```
 
-### `min`
+#### `min`
 
 Returns the element for which the given callback returns the smallest integer.
 
@@ -218,7 +218,7 @@ _::create('1', 'two', 'three')->min(function ($s) {
 }); // '1'
 ```
 
-### `none`
+#### `none`
 
 Test if the given callback returns `false` for each element in the container.
 
@@ -232,7 +232,7 @@ _::create([1, 2, 3, 4])->none(function ($n) {
 }); // false
 ```
 
-### `partition`
+#### `partition`
 
 Partitions the container into two arrays based on the boolean return value of
 the given block.
@@ -243,7 +243,7 @@ _::create(['A', 'B', 'C', 'AA'])->partition(function ($s) {
 }); // [['A', 'AA'], ['B', 'C']]
 ```
 
-### `pluck`
+#### `pluck`
 
 Returns a new array that is the result of retrieving the given property path on
 each element in the receiver.
@@ -252,7 +252,7 @@ each element in the receiver.
 _::create([new User('bob'), new User('alice')])->pluck('username'); // ['bob', 'alice']
 ```
 
-### `reduce`
+#### `reduce`
 
 Reduces the container to a single value.
 
@@ -264,7 +264,7 @@ _::create([1, 2, 3, 4])->reduce(function ($memo, $n) {
 }); // 10
 ```
 
-### `reject`
+#### `reject`
 
 Returns a new array containing all elements for which the given callback
 returns `false`.
@@ -275,7 +275,7 @@ _::create([1, 2, 3, 4])->reject(function ($n) {
 }); // [1, 3]
 ```
 
-### `reverse`
+#### `reverse`
 
 Returns a new array that is the container, reversed.
 
@@ -283,7 +283,7 @@ Returns a new array that is the container, reversed.
 _::create([1, 2, 3, 4])->reverse(); // [4, 3, 2, 1]
 ```
 
-### `select`
+#### `select`
 
 Returns a new array containing all elements for which the given block returns
 `true`.
@@ -294,7 +294,7 @@ _::create([1, 2, 3, 4])->select(function ($n) {
 }); // [2, 4]
 ```
 
-### `skip`
+#### `skip`
 
 Skips the first `n` elements and returns the rest of the array.
 
@@ -302,7 +302,7 @@ Skips the first `n` elements and returns the rest of the array.
 _::create([1, 2, 3, 4, 5, 6])->skip(2); // [3, 4, 5, 6]
 ```
 
-### `slice`
+#### `slice`
 
 Returns a subarray consisting of the given number of elements from the given
 starting index.
@@ -311,7 +311,7 @@ starting index.
 _::create([1, 2, 3, 4])->slice(1, 2); // [2, 3]
 ```
 
-### `snip`
+#### `snip`
 
 Snips the end off the array. Returns the container _without_ the last `n`
 elements.
@@ -320,7 +320,7 @@ elements.
 _::create([1, 2, 3, 4, 5, 6])->snip(2); // [1, 2, 3, 4]
 ```
 
-### `transpose`
+#### `transpose`
 
 Assumes that the container is an array of arrays and transposes the rows and
 columns.
@@ -329,7 +329,7 @@ columns.
 _::create([[1, 2, 3], [4, 5, 6]])->transpose(); // [[1, 4], [2, 5], [3, 6]]
 ```
 
-### `uniq`
+#### `uniq`
 
 Returns a new array by removing duplicate values in the container.
 
@@ -337,7 +337,7 @@ Returns a new array by removing duplicate values in the container.
 _::create([1, 2, 3, 1, 2, 4, 1, 2, 5])->uniq(); // [3, 4, 5]
 ```
 
-### `without`
+#### `without`
 
 Returns a new array where objects in the given array are removed from the
 receiver.
@@ -347,7 +347,7 @@ _::create([1, 2, 4, 3])->without([4]); // [1, 2, 3]
 _::create([1, 2, 3, 4, 5])->without([4, 5]); // [1, 2, 3]
 ```
 
-### `pop`
+#### `pop`
 
 Treats receiver like a stack and removes the last object, returning it.
 
@@ -355,7 +355,7 @@ Treats receiver like a stack and removes the last object, returning it.
 _::create()->push(1)->push(2)->push(3)->pop(); // 3
 ```
 
-### `push`
+#### `push`
 
 Treats container like a stack and adds the given object to the end of the
 container.
@@ -364,7 +364,7 @@ container.
 _::create()->push(1)->push(2)->push(3); // [1, 2, 3]
 ```
 
-### `shift`
+#### `shift`
 
 Removes the container's first object and returns it.
 
@@ -372,7 +372,7 @@ Removes the container's first object and returns it.
 _::create([1, 2, 3])->shift(); // 1
 ```
 
-### `unshift`
+#### `unshift`
 
 Inserts the given object at the front of container, moving all other objects in
 the container up one index.
