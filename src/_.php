@@ -377,7 +377,7 @@ class _
             $result[!((bool) $callback($element))][] = $element;
         }
 
-        return $result;
+        return static::create($result);
     }
 
     /**

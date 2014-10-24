@@ -167,7 +167,7 @@ class _Test extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals([['A', 'AA'], ['B', 'C']], _::create(['A', 'B', 'C', 'AA'])->partition(function ($s) {
             return $s[0] == 'A';
-        }));
+        })->toArray());
     }
 
     public function testPluck()
