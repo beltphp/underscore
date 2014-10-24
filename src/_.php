@@ -521,11 +521,10 @@ class _
      */
     public function sortBy(Callable $callback)
     {
-        $result = [];
-
-        foreach ($this->container as $element) {
-            $result[$callback($element)] = $element;
-        }
+        $result = static::create($this->container)
+                    ->map($callback)
+                    ->combine($this->container)
+                    ->toArray();
 
         ksort($result);
 
