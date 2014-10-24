@@ -258,7 +258,7 @@ class _
      */
     public function last($n)
     {
-        return static::create(array_reverse(array_slice(array_reverse($this->container), 0, $n)));
+        return static::create(array_values(array_slice($this->container, count($this->container) - $n)));
     }
 
     /**
