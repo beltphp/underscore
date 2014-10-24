@@ -93,6 +93,14 @@ Chunks the container into a new array of `n`-sized chunks.
 _::create([1, 2, 3, 4])->chunk(2); // [[1, 2], [3, 4]]
 ```
 
+#### `combine`
+
+Combine the container with another array into key/value pairs.
+
+```php
+_::create([1, 2, 3])->combine(['foo', 'bar', 'baz']); // [1 => 'foo', 2 => 'bar', 3 => 'baz']
+```
+
 #### `concat`
 
 Returns a new array that is the container with the given `array` concatenated

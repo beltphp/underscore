@@ -92,6 +92,18 @@ class _
     }
 
     /**
+     * Combine two arrays into an array of key value pairs.
+     *
+     * @param array
+     *
+     * @return _
+     */
+    public function combine(array $array)
+    {
+        return static::create(array_combine($this->container, $array));
+    }
+
+    /**
      * Returns a new array that is the container with the given `array`
      * concatenated to the end.
      *

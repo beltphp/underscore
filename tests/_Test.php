@@ -32,6 +32,11 @@ class _Test extends \PHPUnit_Framework_TestCase
         $this->assertEquals([[1, 2], [3, 4]], _::create([1, 2, 3, 4])->chunk(2)->toArray());
     }
 
+    public function testCombine()
+    {
+        $this->assertEquals([1 => 'foo', 2 => 'bar', 3 => 'baz'], _::create([1, 2, 3])->combine(['foo', 'bar', 'baz'])->toArray());
+    }
+
     public function testConcat()
     {
         $this->assertEquals([1, 2, 3, 4], _::create([1, 2])->concat([3, 4])->toArray());
