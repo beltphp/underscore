@@ -55,4 +55,37 @@ class _
 
         return true;
     }
+
+    /**
+     * Call the given `callback` for each element in the container. Should the
+     * callback return `true`, the method immediately returns `true` and
+     * enumeration is ceased. If all invocations of the callback return `false`,
+     * `any` returns `false`.
+     *
+     * @param Callable
+     *
+     * @return Boolean
+     */
+    public function any(Callable $callback)
+    {
+        foreach ($this->container as $element) {
+            if ($callback($element) === true) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Chunks the container into a new array of `n`-sized chunks.
+     *
+     * @param integer
+     *
+     * @return _
+     */
+    public function chunk($n)
+    {
+        return static::create(array_chunk($this->container, $n));
+    }
 }
