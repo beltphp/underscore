@@ -549,15 +549,7 @@ class _
      */
     public function uniq()
     {
-        $result = [];
-
-        foreach ($this->container as $element) {
-            if (!in_array($element, $result)) {
-                $result[] = $element;
-            }
-        }
-
-        return static::create($result);
+        return static::create(array_unique($this->container, SORT_REGULAR));
     }
 
     /**
