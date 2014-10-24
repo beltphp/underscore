@@ -4,29 +4,40 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>Belt.Underscore by beltphp</title>
-
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <script src="javascripts/scale.fix.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
   </head>
   <body>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/beltphp/underscore">View On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/beltphp/underscore/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/beltphp/underscore/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
+
     <div class="wrapper">
-      <header>
-        <h1>Belt.Underscore</h1>
-        <p>Pushing square things down round holes.</p>
-        <p class="view"><a href="https://github.com/beltphp/underscore">View the Project on GitHub <small>beltphp/underscore</small></a></p>
-        <ul>
-          <li><a href="https://github.com/beltphp/underscore/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/beltphp/underscore/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/beltphp/underscore">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
+
       <section>
+        <div id="title">
+          <h1>Belt.Underscore</h1>
+          <p>Pushing square things down round holes.</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/beltphp">beltphp</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
+        </div>
+
         <h1>
 <a name="beltunderscore" class="anchor" href="#beltunderscore"><span class="octicon octicon-link"></span></a>Belt.<code>Underscore</code>
 </h1>
@@ -84,7 +95,7 @@ that are over the age of 18.</p>
 
 <blockquote>
 <p><strong>Note</strong>: When, in the examples, the return value comment indicates an array
-the actual return value is a new Underscore instance! You can get the actual
+the actual return value is a new <code>_</code> instance! You can get the actual
 PHP array value by calling the <code>toArray</code> method.</p>
 </blockquote>
 
@@ -121,6 +132,15 @@ If all invocations of the callback return <code>false</code>, <code>any</code> r
 <p>Chunks the container into a new array of <code>n</code>-sized chunks.</p>
 
 <div class="highlight highlight-php"><pre><span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">chunk</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span> <span class="c1">// [[1, 2], [3, 4]]</span>
+</pre></div>
+
+<h4>
+<a name="combine" class="anchor" href="#combine"><span class="octicon octicon-link"></span></a><code>combine</code>
+</h4>
+
+<p>Combine the container with another array into key/value pairs.</p>
+
+<div class="highlight highlight-php"><pre><span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">combine</span><span class="p">([</span><span class="s1">'foo'</span><span class="p">,</span> <span class="s1">'bar'</span><span class="p">,</span> <span class="s1">'baz'</span><span class="p">]);</span> <span class="c1">// [1 =&gt; 'foo', 2 =&gt; 'bar', 3 =&gt; 'baz']</span>
 </pre></div>
 
 <h4>
@@ -366,7 +386,7 @@ the given block.</p>
 </h4>
 
 <p>Returns a new array that is the result of retrieving the given property path on
-each element in the receiver.</p>
+each element in the container.</p>
 
 <div class="highlight highlight-php"><pre><span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="k">new</span> <span class="nx">User</span><span class="p">(</span><span class="s1">'bob'</span><span class="p">),</span> <span class="k">new</span> <span class="nx">User</span><span class="p">(</span><span class="s1">'alice'</span><span class="p">)])</span><span class="o">-&gt;</span><span class="na">pluck</span><span class="p">(</span><span class="s1">'username'</span><span class="p">);</span> <span class="c1">// ['bob', 'alice']</span>
 </pre></div>
@@ -403,6 +423,16 @@ returns <code>false</code>.</p>
 <p>Returns a new array that is the container, reversed.</p>
 
 <div class="highlight highlight-php"><pre><span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">reverse</span><span class="p">();</span> <span class="c1">// [4, 3, 2, 1]</span>
+</pre></div>
+
+<h4>
+<a name="rotate" class="anchor" href="#rotate"><span class="octicon octicon-link"></span></a><code>rotate</code>
+</h4>
+
+<p>Returns a new array rotated about the provided index.</p>
+
+<div class="highlight highlight-php"><pre><span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">rotate</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span> <span class="c1">// [3, 4, 5, 6, 1, 2]</span>
+<span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">rotate</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">);</span> <span class="c1">// [5, 6, 1, 2, 3, 4]</span>
 </pre></div>
 
 <h4>
@@ -495,7 +525,7 @@ columns.</p>
 </h4>
 
 <p>Returns a new array where objects in the given array are removed from the
-receiver.</p>
+container.</p>
 
 <div class="highlight highlight-php"><pre><span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">without</span><span class="p">([</span><span class="mi">4</span><span class="p">]);</span> <span class="c1">// [1, 2, 3]</span>
 <span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">without</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]);</span> <span class="c1">// [1, 2, 3]</span>
@@ -505,7 +535,7 @@ receiver.</p>
 <a name="pop" class="anchor" href="#pop"><span class="octicon octicon-link"></span></a><code>pop</code>
 </h4>
 
-<p>Treats receiver like a stack and removes the last object, returning it.</p>
+<p>Treats container like a stack and removes the last object, returning it.</p>
 
 <div class="highlight highlight-php"><pre><span class="nx">_</span><span class="o">::</span><span class="na">create</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">push</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">push</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">push</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">pop</span><span class="p">();</span> <span class="c1">// 3</span>
 </pre></div>
@@ -548,18 +578,15 @@ the container up one index.</p>
 <a name="credits" class="anchor" href="#credits"><span class="octicon octicon-link"></span></a>Credits</h2>
 
 <p>This project is heavily inspired by <a href="http://mxcl.github.io/YOLOKit/">YOLOKit</a>.
-For all of you who develop in Objective-C, I highly recomment you check it out!</p>
+For all of you who develop in Objective-C, I highly recommend you check it out!</p>
 
 <h2>
 <a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
 
 <p>Please see <a href="https://github.com/beltphp/underscore/blob/master/LICENSE">LICENSE</a>.</p>
       </section>
+
     </div>
-    <footer>
-      <p>Project maintained by <a href="https://github.com/beltphp">beltphp</a></p>
-      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
-    </footer>
     <!--[if !IE]><script>fixScale(document);</script><![endif]-->
     
   </body>
