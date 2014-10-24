@@ -539,10 +539,10 @@ class _
      */
     public function transpose()
     {
-        $result = $this->container;
-        array_unshift($result, null);
-
-        return static::create(call_user_func_array('array_map', $result));
+        return static::create(call_user_func_array(
+            'array_map',
+            static::create($this->container)->unshift(null)->toArray()
+        ));
     }
 
     /**
