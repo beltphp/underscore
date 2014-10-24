@@ -1,6 +1,6 @@
 {
     "name": "belt/underscore",
-    "description": "Pushing square objects down round holes",
+    "description": "Pushing square things down round holes",
     "keywords": [ "underscore", "toolkit" ],
     "homepage": "https://github.com/beltphp/underscore",
     "license": "BSD-2-Clause",
