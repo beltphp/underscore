@@ -36,4 +36,10 @@ class _Test extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals([1, 2, 3, 4], _::create([1, 2])->concat([3, 4])->toArray());
     }
+
+    public function testDict()
+    {
+        $this->assertEquals([1 => 2, 3 => 4], _::create([[1, 2], [3, 4]])->dict()->toArray());
+        $this->assertEquals([1 => 2, 3 => 4], _::create([1, 2, 3, 4])->chunk(2)->dict()->toArray());
+    }
 }

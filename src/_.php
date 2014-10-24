@@ -101,4 +101,20 @@ class _
     {
         return static::create(array_merge($this->container, $array));
     }
+
+    /**
+     * Convert an array of key/value pairs into the logical dictionary.
+     *
+     * @return _
+     */
+    public function dict()
+    {
+        $result = [];
+
+        foreach ($this->container as $kv) {
+            $result[$kv[0]] = $kv[1];
+        }
+
+        return _::create($result);
+    }
 }
