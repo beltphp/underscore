@@ -358,6 +358,14 @@ _::create([1, 2, 3, 4])->reduce(function ($memo, $n) {
 }); // 10
 ```
 
+Reduce also allows you to set an initial value before reducing the array.
+
+```php
+_::create([1, 2, 3, 4])->reduce(function ($s, $n) {
+    return $s + $n;
+}, 10); // 20
+```
+
 #### `reject`
 
 Returns a new array containing all elements for which the given callback

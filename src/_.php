@@ -408,14 +408,15 @@ class _
      * Reduces the container to a single value.
      *
      * @param Callback
+     * @param mixed
      *
      * @return mixed
      */
-    public function reduce(Callable $callback)
+    public function reduce(Callable $callback, $initial = null)
     {
         return array_reduce($this->container, function ($m, $e) use ($callback) {
             return $callback($m, $e);
-        });
+        }, $initial);
     }
 
     /**

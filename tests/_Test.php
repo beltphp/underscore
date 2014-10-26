@@ -191,6 +191,10 @@ class _Test extends \PHPUnit_Framework_TestCase
         $this->assertEquals(10, _::create([1, 2, 3, 4])->reduce(function ($memo, $n) {
             return $memo + $n;
         }));
+
+        $this->assertEquals(20, _::create([1, 2, 3, 4])->reduce(function ($m, $n) {
+            return $m + $n;
+        }, 10));
     }
 
     public function testReject()
