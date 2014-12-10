@@ -12,19 +12,25 @@ class _ implements \ArrayAccess
     private $container;
 
     /**
-     * @param array
+     * @param array|_
      */
-    public function __construct(array $container = array())
+    public function __construct($container = array())
     {
-        $this->container = $container;
+        if (is_array($container)) {
+            $this->container = $container;
+        } elseif ($container instanceof _) {
+            $this->container = $container->toArray();
+        } else {
+            throw new \InvalidArgumentException('Expected an array or _ instance');
+        }
     }
 
     /**
-     * @param array
+     * @param array|_
      *
      * @return _
      */
-    public static function create(array $container = array())
+    public static function create($container = array())
     {
         return new self($container);
     }

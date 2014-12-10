@@ -18,6 +18,23 @@ class _Test extends \PHPUnit_Framework_TestCase
         $this->assertEquals([1, 3, 4], $container->toArray());
     }
 
+    public function testAcceptArrayInConstructor()
+    {
+        $this->assertEquals([1, 2, 3, 4], _::create([1, 2, 3, 4])->toArray());
+    }
+
+    public function testAcceptInstanceInConstructor()
+    {
+        $this->assertEquals([1, 2, 3, 4], _::create(_::create([1, 2, 3, 4]))->toArray());
+    }
+
+    public function testThrowExceptionForInvalidConstructorArgument()
+    {
+        $this->setExpectedException('InvalidArgumentException');
+
+        _::create('foo');
+    }
+
     public function testAll()
     {
         $this->assertTrue(_::create([1, 2, 3, 4])->all(function ($n) {
