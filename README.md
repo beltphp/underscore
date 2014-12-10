@@ -60,6 +60,19 @@ That's it!
 > __Note__: When, in the examples, the return value comment indicates an array
 > the actual return value is a new `_` instance! You can get the actual
 > PHP array value by calling the `toArray` method.
+> 
+
+The `_` class implements `ArrayAccess` too, so you can access it like an usual array:
+
+```php
+$groups = _::create($user->getFriends())->groupBy(function ($friend) {
+    $name = $friend->getName();
+
+    return $name[0];
+});
+
+$groups['A'] = ...; // All friends with the letter 'A' as the first letter in their name
+```
 
 #### `all`
 
