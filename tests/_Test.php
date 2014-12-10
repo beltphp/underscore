@@ -5,6 +5,19 @@ use Belt\_;
 
 class _Test extends \PHPUnit_Framework_TestCase
 {
+    public function testImplementArrayAccess()
+    {
+        $container = _::create([1, 2, 3, 4]);
+        $this->assertTrue(isset($container[1]));
+        $this->assertEquals(2, $container[1]);
+
+        $container[1] = 3;
+        $this->assertEquals([1, 3, 3, 4], $container->toArray());
+
+        unset($container[1]);
+        $this->assertEquals([1, 3, 4], $container->toArray());
+    }
+
     public function testAll()
     {
         $this->assertTrue(_::create([1, 2, 3, 4])->all(function ($n) {

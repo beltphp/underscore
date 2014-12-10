@@ -6,7 +6,7 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
 /**
  * @author Ramon Kleiss <ramonkleiss@gmail.com>
  */
-class _
+class _ implements \ArrayAccess
 {
     /** @var array */
     private $container;
@@ -673,5 +673,41 @@ class _
         } else {
             return static::create(explode($seperator, $string));
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function offsetExists($offset)
+    {
+        return isset($this->container[$offset]);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function offsetGet($offset)
+    {
+        return $this->container[$offset];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function offsetSet($offset, $value)
+    {
+        $this->container[$offset] = $value;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function offsetUnset($offset)
+    {
+        if ($this->offsetExists($offset)) {
+            unset($this->container[$offset]);
+        }
+
+        $this->container = array_values($this->container);
     }
 }
