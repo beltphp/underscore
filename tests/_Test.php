@@ -293,6 +293,11 @@ class _Test extends \PHPUnit_Framework_TestCase
         })->toArray());
     }
 
+    public function testSum()
+    {
+        $this->assertEquals(10, _::create([1, 2, 3, 4])->sum());
+    }
+
     public function testTranspose()
     {
         $this->assertEquals([[1, 4], [2, 5], [3, 6]], _::create([[1, 2, 3], [4, 5, 6]])->transpose()->toArray());

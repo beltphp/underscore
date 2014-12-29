@@ -577,6 +577,20 @@ class _ implements \ArrayAccess
     }
 
     /**
+     * Sum all objects by casting the values to a double.
+     *
+     * @return double
+     */
+    public function sum()
+    {
+        return $this->map(function ($v) {
+            return (double) $v;
+        })->inject(0, function ($m, $n) {
+            return $m += $n;
+        });
+    }
+
+    /**
      * Assumes that the container is an array of arrays and transposes the rows
      * and columns.
      *

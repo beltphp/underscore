@@ -483,6 +483,14 @@ _::create([ $rhombas, $ellipse, $hexagon ])->sortBy(function ($s) {
 }); // [ $ellipse, $hexagon, $rhombas ]
 ```
 
+#### `sum`
+
+Sum all objects by casting the values to a double.
+
+```php
+_::create([1, 2, 3, 4])->sum(); // 10
+```
+
 #### `transpose`
 
 Assumes that the container is an array of arrays and transposes the rows and
