@@ -6,7 +6,7 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
 /**
  * @author Ramon Kleiss <ramonkleiss@gmail.com>
  */
-class _ implements \ArrayAccess
+class _ implements \ArrayAccess, \IteratorAggregate
 {
     /** @var array */
     private $container;
@@ -744,5 +744,13 @@ class _ implements \ArrayAccess
         }
 
         $this->container = array_values($this->container);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getIterator()
+    {
+        return new \ArrayIterator($this->container);
     }
 }

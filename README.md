@@ -74,6 +74,16 @@ $groups = _::create($user->getFriends())->groupBy(function ($friend) {
 $groups['A'] = ...; // All friends with the letter 'A' as the first letter in their name
 ```
 
+Additionally, you can traverse the container in a `foreach` loop as well:
+
+```php
+$users = _::create(['alice', 1337, 'bob', 42])->chunk(2);
+
+foreach ($users as $name => $karma) {
+    // ...
+}
+```
+
 #### `all`
 
 Call the given `callback` for each element in the container. Should the callback

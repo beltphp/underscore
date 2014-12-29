@@ -18,6 +18,19 @@ class _Test extends \PHPUnit_Framework_TestCase
         $this->assertEquals([1, 3, 4], $container->toArray());
     }
 
+    public function testIsIteratable()
+    {
+        $container = _::create([1, 2, 3, 4]);
+        $count     = 0;
+
+        foreach ($container as $k => $v) {
+            $this->assertRegExp('/[1234]/', (string) $v);
+            $count++;
+        }
+
+        $this->assertEquals(4, $count);
+    }
+
     public function testAcceptArrayInConstructor()
     {
         $this->assertEquals([1, 2, 3, 4], _::create([1, 2, 3, 4])->toArray());
