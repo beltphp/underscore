@@ -580,11 +580,7 @@ _::split('1234'); // ['1', '2', '3', '4']
 We can do some pretty neat stuff with this!
 
 ```php
-_::split('1234')->map(function ($n) {
-    return (integer) $n;
-})->reduce(function ($s, $n) {
-    return $s + $n;
-}); // 10
+_::split('1234')->sum(); // 10
 ```
 
 #### `first`, `last`, `skip`, `snip` & `slice`
