@@ -359,6 +359,14 @@ each element in the container.
 _::create([new User('bob'), new User('alice')])->pluck('username'); // ['bob', 'alice']
 ```
 
+#### `product`
+
+Calculate the product of the container by assuming that all values can be casted to a double value.
+
+```php
+_::create([1, 2, 3])->product(); // 6
+```
+
 #### `reduce`
 
 Reduces the container to a single value.

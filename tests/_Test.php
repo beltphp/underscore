@@ -216,6 +216,11 @@ class _Test extends \PHPUnit_Framework_TestCase
         $this->assertEquals(['bob', 'alice'], _::create($users)->pluck('username')->toArray());
     }
 
+    public function testProduct()
+    {
+        $this->assertEquals(6, _::create([1, 2, 3])->product());
+    }
+
     public function testReduce()
     {
         $this->assertEquals(10, _::create([1, 2, 3, 4])->reduce(function ($memo, $n) {

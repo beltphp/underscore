@@ -411,6 +411,21 @@ class _ implements \ArrayAccess
     }
 
     /**
+     * Calculate the product of the container by assuming that all values can
+     * be casted to a double value.
+     *
+     * @return double
+     */
+    public function product()
+    {
+        return $this->map(function ($v) {
+            return (double) $v;
+        })->inject(1, function ($m, $n) {
+            return $m *= $n;
+        });
+    }
+
+    /**
      * Reduces the container to a single value.
      *
      * @param Callback
